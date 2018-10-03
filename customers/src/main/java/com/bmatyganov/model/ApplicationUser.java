@@ -31,9 +31,10 @@ public class ApplicationUser implements Serializable {
     @Column(name = "USER_ROLE")
     private String role;
 
-    public ApplicationUser(){}
+    public ApplicationUser() {
+    }
 
-    public ApplicationUser(String firstName, String lastName, String email, String password, String role){
+    public ApplicationUser(String firstName, String lastName, String email, String password, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

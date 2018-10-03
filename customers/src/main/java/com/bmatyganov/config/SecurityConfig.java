@@ -17,7 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    ApplicationUserServiceImpl applicationUserService;
+    private ApplicationUserServiceImpl applicationUserService;
 
     @Autowired
     private LoggingAccessDeniedHandler accessDeniedHandler;

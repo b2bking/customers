@@ -1,7 +1,5 @@
 package com.bmatyganov.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import com.bmatyganov.model.Customer;
@@ -13,27 +11,27 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
 
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository){
+    public CustomerServiceImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
     @Override
-    public Page<Customer> findAll(Pageable pageable){
+    public Page<Customer> findAll(Pageable pageable) {
         return customerRepository.findAll(pageable);
     }
 
     @Override
-    public Optional<Customer> findOne(long id){
+    public Optional<Customer> findOne(long id) {
         return customerRepository.findById(id);
     }
 
     @Override
-    public void save(Customer customer){
+    public void save(Customer customer) {
         customerRepository.save(customer);
     }
 

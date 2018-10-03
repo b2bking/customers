@@ -9,9 +9,9 @@ import org.springframework.data.domain.Pageable;
 
 public interface NoteService {
 
-    public Page<Note> findAllByCustomerId(long id, Pageable pageable);
+    Page<Note> findAllByCustomerId(long id, Pageable pageable);
 
-    public void save(Note note);
+    void save(Note note);
 
-    public Optional<Note> findOne(long id);
+    Optional<Note> findOne(long id);
 }

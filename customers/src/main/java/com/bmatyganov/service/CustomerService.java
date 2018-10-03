@@ -9,9 +9,9 @@ import org.springframework.data.domain.Pageable;
 
 public interface CustomerService {
 
-    public Page<Customer> findAll(Pageable pageable);
+    Page<Customer> findAll(Pageable pageable);
 
-    public Optional<Customer> findOne(long id);
+    Optional<Customer> findOne(long id);
 
-    public void save(Customer customer);
+    void save(Customer customer);
 }

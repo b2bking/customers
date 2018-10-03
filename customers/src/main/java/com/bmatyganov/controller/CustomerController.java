@@ -112,13 +112,12 @@ public class CustomerController {
                               @ModelAttribute(value = "note") Note note) {
 
         ApplicationUser user = applicationUserRepository.findOneByEmail(principal.getName());
-        if("".equals(note.getCreatedBy())){
+        if ("".equals(note.getCreatedBy())) {
             note.setCreatedBy(String.format("%s %s", user.getFirstName(), user.getLastName()));
-         }
+        }
 
         note.setUpdatedBy(String.format("%s %s", user.getFirstName(), user.getLastName()));
         noteService.save(note);
-
 
 
         return "redirect:/user/profile?id=" + note.getCustomerId();
@@ -126,11 +125,11 @@ public class CustomerController {
 
     @GetMapping(value = "/user/update-note")
     public String updateNote(Model model,
-                             @RequestParam(value = "id") long id){
+                             @RequestParam(value = "id") long id) {
 
         Note note = noteService.findOne(id).get();
 
-        model.addAttribute("note" , note);
+        model.addAttribute("note", note);
 
         return "user/note.html";
     }

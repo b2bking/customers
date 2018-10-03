@@ -14,6 +14,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'checkstyle'
 
 group = 'com.bmatyganov'
 version = '0.0.1-SNAPSHOT'
@@ -38,4 +39,20 @@ dependencies {
     compile('org.webjars:webjars-locator:0.32')
 	runtimeOnly('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+checkstyle {
+	toolVersion '7.8.1'
+	configFile file("buildconf/checkstyle.xml")
+}
+checkstyleMain {
+	source ='src/main/java'
+}
+checkstyleTest {
+	source ='src/test/java'
+}
+
+tasks.withType(Checkstyle) {
+    include '**/*.java'
+    exclude '**/CustomersApplication.java'
 }

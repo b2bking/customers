@@ -28,14 +28,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class ApplicationUserServiceImpl implements UserDetailsService {
 
     @Autowired
-    ApplicationUserRepository applicationUserRepository;
+    private ApplicationUserRepository applicationUserRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @PostConstruct
     protected void initialize() {
-        save(new ApplicationUser("John", "Smith", "admin@test.com", "admin","ROLE_ADMIN"));
+        save(new ApplicationUser("John", "Smith", "admin@test.com", "admin", "ROLE_ADMIN"));
         save(new ApplicationUser("Sara", "Conar", "user@test.com", "user", "ROLE_USER"));
     }
 
@@ -49,7 +49,7 @@ public class ApplicationUserServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         ApplicationUser user = applicationUserRepository.findOneByEmail(username);
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("user not found");
         }
         return createUser(user);
@@ -60,7 +60,8 @@ public class ApplicationUserServiceImpl implements UserDetailsService {
     }
 
     private Authentication authenticate(ApplicationUser user) {
-        return new UsernamePasswordAuthenticationToken(createUser(user), null, Collections.singleton(createAuthority(user)));
+        return new UsernamePasswordAuthenticationToken(createUser(user), null,
+                Collections.singleton(createAuthority(user)));
     }
 
     private User createUser(ApplicationUser user) {

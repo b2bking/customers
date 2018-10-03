@@ -24,14 +24,14 @@ public class CustomerRestController {
     private ApplicationUserRepository applicationUserRepository;
 
     @GetMapping(value = "/customers")
-    List<Customer> findAll(@RequestParam(required=false) Long id){
+    List<Customer> findAll(@RequestParam(required = false) Long id) {
         List<Customer> customers = new ArrayList<>();
-        if(null == id){
+        if (null == id) {
             Iterable<Customer> results = this.customerRepository.findAll();
             results.forEach(customer -> customers.add(customer));
-        }else{
+        } else {
             Optional<Customer> customer = this.customerRepository.findById(id);
-            if(customer.isPresent()){
+            if (customer.isPresent()) {
                 customers.add(customer.get());
             }
         }
@@ -40,14 +40,14 @@ public class CustomerRestController {
     }
 
     @GetMapping(value = "/users")
-    List<ApplicationUser> findUser(@RequestParam(required=false) Long id){
+    List<ApplicationUser> findUser(@RequestParam(required = false) Long id) {
         List<ApplicationUser> customers = new ArrayList<>();
-        if(null == id){
+        if (null == id) {
             Iterable<ApplicationUser> results = this.applicationUserRepository.findAll();
             results.forEach(customer -> customers.add(customer));
-        }else{
+        } else {
             Optional<ApplicationUser> customer = this.applicationUserRepository.findById(id);
-            if(customer.isPresent()){
+            if (customer.isPresent()) {
                 customers.add(customer.get());
             }
         }
