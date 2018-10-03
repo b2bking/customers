@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Secured</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <table class = "table table-striped">
+        <tbody>
+        <tr>
+            <td colspan="2" align="right">
+                <a th:href="@{/user/profile-edit(id=${customer.id})}" data-toggle="tooltip" data-placement="top"
+                   title="Edit Customer!">
+                <span class="glyphicon glyphicon-pencil"></span></a>
+                <a th:href="@{/user/note(id=${customer.id})}" data-toggle="tooltip" data-placement="top"
+                   title="Add Note!">
+                    <span class="glyphicon glyphicon-file"></span></a>
+            </td>
+
+        </tr>
+        <tr>
+            <td><strong>ID</strong></td>
+            <td th:text="${customer.id}" />
+        </tr>
+        <tr>
+            <td><strong>First Name</strong></td>
+            <td th:text="${customer.firstName}" />
+        </tr>
+        <tr>
+            <td><strong>Last Name</strong></td>
+            <td th:text="${customer.lastName}" />
+        </tr>
+        <tr>
+            <td><strong>Status</strong></td>
+            <td th:text="${customer.status}" />
+        </tr>
+        <tr>
+            <td><strong>Creation Date</strong></td>
+            <td th:text="${#dates.format(new java.util.Date(customer.creationDate), 'dd-MM-yyyy HH:mm')}" />
+        </tr>
+        <tr>
+            <td><strong>Email</strong></td>
+            <td th:text="${customer.emailAddress}" />
+        </tr>
+        <tr>
+            <td><strong>Address</strong></td>
+            <td th:text="${customer.address}" />
+        </tr>
+        <tr>
+            <td><strong>Country</strong></td>
+            <td th:text="${customer.country}" />
+        </tr>
+        <tr>
+            <td><strong>State</strong></td>
+            <td th:text="${customer.state}" />
+        </tr>
+        <tr>
+            <td><strong>Phone Number</strong></td>
+            <td th:text="${customer.phoneNumber}" />
+        </tr>
+        </tbody>
+    </table>
+
+    <table class = "table table-striped">
+        <thead>
+        <tr>
+            <th>Note ID</th>
+            <th>Summary</th>
+            <th>Created By</th>
+            <th>Created Date</th>
+            <th>Updated By</th>
+            <th>Updated Date</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="note, iStat : ${notes.content}">
+            <td th:text="${note.id}" />
+            <td th:text="${#strings.abbreviate(note.summary, 40)}"/>
+            <td th:text="${note.createdBy}" />
+            <td th:text="${#dates.format(new java.util.Date(note.createDate), 'dd-MM-yyyy HH:mm')}" />
+            <td th:text="${note.updatedBy}" />
+            <td th:text="${#dates.format(new java.util.Date(note.updateDate), 'dd-MM-yyyy HH:mm')}" />
+            <td><a th:href="@{/user/update-note(id=${note.id})}">
+                <span class="glyphicon glyphicon-pencil"></span></a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${notes.totalPages > 0}" class="pagination"
+         th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/user/profile(size=${notes.size}, page=${pageNumber})}"
+           th:text=${pageNumber}
+           th:class="${pageNumber==notes.number + 1} ? active"></a>
+    </div>
+</div>
+</body>
+</html>

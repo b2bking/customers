@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Secured</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <form action="#" th:action="@{/user/update-customer}" th:object="${customer}" method="post">
+        <fieldset>
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{creationDate}"/>
+
+            <table class = "table table-striped">
+                <tbody>
+                <tr>
+                    <td><strong>First Name</strong></td>
+                    <td><input th:field="*{firstName}" /></td>
+                </tr>
+                <tr>
+                    <td><strong>Last Name</strong></td>
+                    <td><input th:field="*{lastName}" /></td>
+                </tr>
+                <tr>
+                    <td><strong>Status</strong></td>
+                    <td><input th:field="*{status}" /></td>
+                </tr>
+                <tr>
+                    <td><strong>Email</strong></td>
+                    <td><input th:field="*{emailAddress}" /></td>
+                </tr>
+                <tr>
+                    <td><strong>Address</strong></td>
+                    <td><input th:field="*{address}" /></td>
+                </tr>
+                <tr>
+                    <td><strong>Country</strong></td>
+                    <td><input th:field="*{country}" /></td>
+                </tr>
+                <tr>
+                    <td><strong>State</strong></td>
+                    <td><input th:field="*{state}" /></td>
+                </tr>
+                <tr>
+                    <td><strong>Phone Number</strong></td>
+                    <td><input th:field="*{phoneNumber}" /></td>
+                </tr>
+                </tbody>
+            </table>
+            <input type="submit" id="submitButton" th:value="Save">
+        </fieldset>
+    </form>
+
+</div>
+</body>
+</html>

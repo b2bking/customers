@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Secured</title>
+    <style>
+        .pagination {
+            display: inline-block;
+        }
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 5px 5px;
+            text-decoration: none;
+        }
+        .pagination a.active {
+            background-color: gray;
+            color: white;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <table class = "table table-striped">
+        <thead>
+            <tr>
+                <th>Customer ID</th>
+                <th>First Name</th>
+                <th>Last Name" </th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="customer, iStat : ${customerPage.content}">
+                <td th:text="${customer.id}" />
+                <td th:text="${customer.firstName}" />
+                <td th:text="${customer.lastName}" />
+                <td th:text="${customer.status}" />
+                <td><a th:href="@{/user/profile(id=${customer.id})}">
+                    <span class="glyphicon glyphicon-user"></span></a></td>
+            </tr>
+        </tbody>
+    </table>
+    <div th:if="${customerPage.totalPages > 0}" class="pagination"
+         th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/user(size=${customerPage.size}, page=${pageNumber})}"
+           th:text=${pageNumber}
+           th:class="${pageNumber==customerPage.number + 1} ? active"></a>
+    </div>
+</div>
+</body>
+</html>

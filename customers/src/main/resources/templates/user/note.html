@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Secured</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <form action="#" th:action="@{/user/save-note}" th:object="${note}" method="post">
+        <input type="hidden" th:field="*{customerId}"/>
+        <input type="hidden" th:field="*{createdBy}"/>
+        <input type="hidden" th:field="*{createDate}"/>
+        <input type="hidden" th:field="*{id}"/>
+        <div class="form-group">
+            <label for="note">Note:</label>
+            <textarea class="form-control" rows="5" id="note"  maxlength="240"
+                      th:field="*{summary}"></textarea>
+        </div>
+        <input type="submit" id="submitButton" th:value="Save"/>
+    </form>
+
+</div>
+</body>
+</html>
