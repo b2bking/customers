@@ -13,6 +13,7 @@ In user page you will be able to perform following actions:
   - create note about customer
   - update notes about customer
   
-This is a java spring boot application, you have to install java to be able to run the application.
+This is a java version 8 or higher spring boot application, you have to install java to be able to run the application.
 You can use prefered IDE to run the project.
 Also, from command line run the command gradlew clean build, gradle bootRun from customers folder root directory.
+After you run the application open your browser and go to localhost:8080 to open the home page.
