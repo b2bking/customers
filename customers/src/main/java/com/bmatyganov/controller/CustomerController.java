@@ -104,7 +104,6 @@ public class CustomerController {
         Note note = new Note();
         note.setCustomerId(id);
         model.addAttribute("note", note);
-        System.out.println("Save note #############################" + note.getId());
         return "user/note.html";
     }
 
@@ -115,12 +114,7 @@ public class CustomerController {
         ApplicationUser user = applicationUserRepository.findOneByEmail(principal.getName());
         if("".equals(note.getCreatedBy())){
             note.setCreatedBy(String.format("%s %s", user.getFirstName(), user.getLastName()));
-            System.out.println("Inside if statement #############################" );
-        }
-
-        System.out.println("Update note #############################" + note.getId());
-        System.out.println("Customer id #############################" + note.getCustomerId());
-        System.out.println("Created by id #############################" + note.getCreatedBy());
+         }
 
         note.setUpdatedBy(String.format("%s %s", user.getFirstName(), user.getLastName()));
         noteService.save(note);
@@ -135,8 +129,6 @@ public class CustomerController {
                              @RequestParam(value = "id") long id){
 
         Note note = noteService.findOne(id).get();
-
-        System.out.println("Note to update #############################" + note.getId());
 
         model.addAttribute("note" , note);
 

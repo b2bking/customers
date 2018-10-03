@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .authorizeRequests()
+                .authorizeRequests()
                 .antMatchers(
                         "/",
                         "/js/**",
@@ -50,20 +50,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/h2-console/**",
                         "/actuator/**").permitAll()
                 .antMatchers("/user/**").hasRole("USER")
-                    .anyRequest().authenticated()
+                .anyRequest().authenticated()
                 .and()
-            .formLogin()
+                .formLogin()
                 .loginPage("/login")
                 .permitAll()
                 .and()
-            .logout()
+                .logout()
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
                 .and()
-            .exceptionHandling()
+                .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler);
     }
 }

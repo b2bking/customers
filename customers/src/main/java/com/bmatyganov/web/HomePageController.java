@@ -10,11 +10,6 @@ public class HomePageController {
     public String index(){
         return "index";
     }
-//
-//    @GetMapping("/user")
-//    public String userIndex() {
-//        return "user/index";
-//    }
 
     @GetMapping("/login")
     public String login() {
