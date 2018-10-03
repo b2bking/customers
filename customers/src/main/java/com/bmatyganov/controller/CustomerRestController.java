@@ -35,7 +35,6 @@ public class CustomerRestController {
                 customers.add(customer.get());
             }
         }
-
         return customers;
     }
 
@@ -51,7 +50,6 @@ public class CustomerRestController {
                 customers.add(customer.get());
             }
         }
-
         return customers;
     }
 }

@@ -34,6 +34,4 @@ public class CustomerServiceImpl implements CustomerService {
     public void save(Customer customer) {
         customerRepository.save(customer);
     }
-
-
 }

@@ -76,8 +76,6 @@ public class CustomerController {
 
         model.addAttribute("customer", customer.get());
         model.addAttribute("notes", notes);
-
-
         return "user/profile.html";
     }
 
@@ -94,7 +92,6 @@ public class CustomerController {
     public String updateCustomer(Model model,
                                  @ModelAttribute(value = "customer") Customer customer) {
         customerService.save(customer);
-
         return "redirect:/user/profile?id=" + customer.getId();
     }
 
@@ -118,8 +115,6 @@ public class CustomerController {
 
         note.setUpdatedBy(String.format("%s %s", user.getFirstName(), user.getLastName()));
         noteService.save(note);
-
-
         return "redirect:/user/profile?id=" + note.getCustomerId();
     }
 
@@ -130,7 +125,6 @@ public class CustomerController {
         Note note = noteService.findOne(id).get();
 
         model.addAttribute("note", note);
-
         return "user/note.html";
     }
 }

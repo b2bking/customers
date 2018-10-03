@@ -20,7 +20,6 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public Page<Note> findAllByCustomerId(long id, Pageable pageable){
-
         return noteRepository.findByCustomerId(id, pageable);
     }
 
