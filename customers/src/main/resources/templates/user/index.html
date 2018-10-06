@@ -20,17 +20,51 @@
             border-radius: 2px;
         }
     </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script th:inline="javascript">
+    //thymeleaf to javascript variables
+    /*<![CDATA[*/
+    var sortProperty = /*[[${sortProperty}]]*/ null;
+    var sortDesc = /*[[${sortDesc}]]*/ null;
+    var currentPage = /*[[${customerPage.number}]]*/ 0;
+    var pageSize =/*[[${customerPage.size}]]*/ 0;
+    /*]]>*/
+
+    $(document).ready(function(){
+     //show up/down arrows
+     $("table#emp-table thead th").each(function(){
+        var head = $(this);
+        if(head.attr('data-sort-prop')==sortProperty){
+            head.append(sortDesc?'▾':'▴');
+        }
+        });
+
+     //set click action, reload page on clicking with all query params
+     $("table#emp-table thead th").click(function() {
+      var headerSortPropName = $(this).attr("data-sort-prop");
+      if(headerSortPropName==sortProperty){
+          window.location.href = window.location.pathname+
+          '?page='+currentPage+'&size='+pageSize+'&sort='+ headerSortPropName+','+
+          (sortDesc?'asc':'desc');
+      }else{
+           window.location.href = window.location.pathname+
+          '?page='+currentPage+'&size='+pageSize+'&sort='+ headerSortPropName+',asc';
+      }
+      });
+    });
+  </script>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
 
-    <table class = "table table-striped">
+    <table class = "table table-striped" id="emp-table">
         <thead>
             <tr>
-                <th>Customer ID</th>
-                <th>First Name</th>
-                <th>Last Name" </th>
-                <th>Status</th>
+                <th data-sort-prop="id">Customer ID</th>
+                <th data-sort-prop="firstName">First Name</th>
+                <th data-sort-prop="lastName">Last Name </th>
+                <th data-sort-prop="status">Status</th>
                 <th></th>
             </tr>
         </thead>
@@ -46,8 +80,8 @@
         </tbody>
     </table>
     <div th:if="${customerPage.totalPages > 0}" class="pagination"
-         th:each="pageNumber : ${pageNumbers}">
-        <a th:href="@{/user(size=${customerPage.size}, page=${pageNumber})}"
+         th:each="pageNumber : ${pageNumbers}" th:with="sortParam=${sortProperty+','+(sortDesc?'desc':'asc')}">
+        <a th:href="@{/user(size=${customerPage.size}, page=${pageNumber-1}, sort=${sortParam})}"
            th:text=${pageNumber}
            th:class="${pageNumber==customerPage.number + 1} ? active"></a>
     </div>

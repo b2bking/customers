@@ -16,6 +16,8 @@ import com.bmatyganov.service.NoteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,11 +39,19 @@ public class CustomerController {
 
     @GetMapping(value = "/user")
     public String listCustomers(Model model,
-                                @RequestParam(value = "page", defaultValue = "1") int page,
-                                @RequestParam(value = "size", defaultValue = "10") int size) {
+                                @RequestParam(value = "page", defaultValue = "0") int page,
+                                @RequestParam(value = "size", defaultValue = "10") int size,
+                                @SortDefault(sort="id",direction = Sort.Direction.ASC) Sort sort) {
 
-        PageRequest pageRequest = PageRequest.of(page - 1, size);
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
         Page<Customer> customers = customerService.findAll(pageRequest);
+
+        List<Sort.Order> sortOrders = customers.getSort().stream().collect(Collectors.toList());
+        if (sortOrders.size() > 0) {
+            Sort.Order order = sortOrders.get(0);
+            model.addAttribute("sortProperty", order.getProperty());
+            model.addAttribute("sortDesc", order.getDirection() == Sort.Direction.DESC);
+        }
 
         int totalPages = customers.getTotalPages();
         if (totalPages > 0) {
