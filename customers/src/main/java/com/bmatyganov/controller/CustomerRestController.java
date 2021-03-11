@@ -20,6 +20,8 @@ public class CustomerRestController {
     @Autowired
     private CustomerRepository customerRepository;
 
+    // test 2
+
     @Autowired
     private ApplicationUserRepository applicationUserRepository;
 
