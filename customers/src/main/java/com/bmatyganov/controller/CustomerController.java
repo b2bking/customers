@@ -34,6 +34,8 @@ public class CustomerController {
     @Autowired
     private NoteServiceImpl noteService;
 
+    //test1
+
     @Autowired
     private ApplicationUserRepository applicationUserRepository;
 
